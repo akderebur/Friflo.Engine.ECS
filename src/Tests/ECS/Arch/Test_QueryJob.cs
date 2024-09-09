@@ -383,7 +383,7 @@ public static class Test_QueryJob
         multiple = store.Query<Rotation>()          .ForEach((_, _) => {}).ParallelComponentMultiple;
         Assert.AreEqual(4, multiple);
         
-        multiple = store.Query<Transform>()         .ForEach((_, _) => {}).ParallelComponentMultiple;
+        multiple = store.Query<ECSTransform>()         .ForEach((_, _) => {}).ParallelComponentMultiple;
         Assert.AreEqual(1, multiple);
         
         multiple = store.Query<Component16>()       .ForEach((_, _) => {}).ParallelComponentMultiple;

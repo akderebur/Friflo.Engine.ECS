@@ -67,7 +67,7 @@ public class ComponentField
             fields.Add(field);
             return true;
         }
-        if (type == typeof(Transform)) {
+        if (type == typeof(ECSTransform)) {
             var field0      = new ComponentField("position",   componentType, type,  0, member);
             var field1      = new ComponentField("rotation",   componentType, type,  1, member);
             field0.control  = new Vector3Field { ComponentField = field0 };
@@ -179,9 +179,9 @@ public class ComponentField
             control.Z       = scale3.z;
             return;
         }
-        if (type == typeof(Transform)) {
+        if (type == typeof(ECSTransform)) {
             var control     = (Vector3Field)field.control;
-            var transform   = (Transform)data.GetData();
+            var transform   = (ECSTransform)data.GetData();
             if (field.index == 0) {
                 control.X = transform.m11;
                 control.Y = transform.m12;
@@ -252,9 +252,9 @@ public class ComponentField
     
     private void SetComponentVector(Entity entity, in Vector3 vector)
     {
-        if (type == typeof(Transform))
+        if (type == typeof(ECSTransform))
         {
-            ref var transform = ref entity.GetComponent<Transform>();
+            ref var transform = ref entity.GetComponent<ECSTransform>();
             switch (index) {
                 case 0:
                     transform.m11 = vector.X;
@@ -291,7 +291,7 @@ public class ComponentField
     
     private void SetScriptVector(object script, in Vector3 vector)
     {
-        if (type == typeof(Transform))
+        if (type == typeof(ECSTransform))
         {
             member.SetVar(script, new Var(vector));
             return;

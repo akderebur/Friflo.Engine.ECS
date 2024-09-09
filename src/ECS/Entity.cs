@@ -272,35 +272,16 @@ public readonly partial struct Entity : IEquatable<Entity>
         throw EntityNullException();
     } }
     
-    /// <summary>Returns the <see cref="ECS.Position"/> reference of an entity.</summary>
-    /// <exception cref="NullReferenceException"> if entity has no <see cref="Position"/></exception>
-    [Browse(Never)] public  ref Position        Position { get {
+    /// <summary>Returns the <see cref="ECS.TRS"/> reference of an entity.</summary>
+    /// <exception cref="NullReferenceException"> if entity has no <see cref="TRS"/></exception>
+    [Browse(Never)] public  ref TRS        LocalTransform { get {
         var node = store.nodes[Id];
         if (node.IsAlive(Revision)) {
-            return ref node.archetype.std.position.components[node.compIndex];
+            return ref node.archetype.std.trs.components[node.compIndex];
         }
         throw EntityNullException();
     } }
     
-    /// <summary>Returns the <see cref="ECS.Rotation"/> reference of an entity.</summary>
-    /// <exception cref="NullReferenceException"> if entity has no <see cref="Rotation"/></exception>
-    [Browse(Never)] public  ref Rotation        Rotation { get {
-        var node = store.nodes[Id];
-        if (node.IsAlive(Revision)) {
-            return ref node.archetype.std.rotation.components[node.compIndex];
-        }
-        throw EntityNullException();
-    } }
-    
-    /// <summary>Returns the <see cref="ECS.Scale3"/> reference of an entity.</summary>
-    /// <exception cref="NullReferenceException"> if entity has no <see cref="Scale3"/></exception>
-    [Browse(Never)] public  ref Scale3          Scale3 { get {
-        var node = store.nodes[Id];
-        if (node.IsAlive(Revision)) {
-            return ref node.archetype.std.scale3.components[node.compIndex];
-        }
-        throw EntityNullException();
-    } }
     
     /// <summary>Returns true if the entity has an <see cref="ECS.EntityName"/>.</summary>
     [Browse(Never)] public  bool                HasName { get {
@@ -308,23 +289,12 @@ public readonly partial struct Entity : IEquatable<Entity>
         return type.std.name != null;
     } }
     
-    /// <summary>Returns true if the entity has a <see cref="ECS.Position"/>.</summary>
-    [Browse(Never)] public  bool                HasPosition { get {
+    /// <summary>Returns true if the entity has a <see cref="ECS.TRS"/>.</summary>
+    [Browse(Never)] public  bool                HasTRS { get {
         var type = GetArchetype() ?? throw EntityNullException();
-        return type.std.position != null;
+        return type.std.trs != null;
     } }
     
-    /// <summary>Returns true if the entity has a <see cref="ECS.Rotation"/>.</summary>
-    [Browse(Never)] public  bool                HasRotation { get {
-        var type = GetArchetype() ?? throw EntityNullException();
-        return type.std.rotation != null;
-    } }
-    
-    /// <summary>Returns true if the entity has a <see cref="ECS.Scale3"/>.</summary>
-    [Browse(Never)] public  bool                HasScale3 { get {
-        var type = GetArchetype() ?? throw EntityNullException();
-        return type.std.scale3 != null;
-    } }
     #endregion
 
 

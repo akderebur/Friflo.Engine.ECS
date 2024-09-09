@@ -97,7 +97,7 @@ public static class Test_QueryJob
         AreEqual( 16, ComponentType<Position>       .ComponentMultiple); // 12 bytes
         AreEqual( 16, ComponentType<Scale3>         .ComponentMultiple); // 12 bytes
         AreEqual(  4, ComponentType<Rotation>       .ComponentMultiple); // 16 bytes
-        AreEqual(  1, ComponentType<Transform>      .ComponentMultiple); // 64 bytes
+        AreEqual(  1, ComponentType<ECSTransform>      .ComponentMultiple); // 64 bytes
         
         AreEqual( 16, ComponentType<Component20>    .ComponentMultiple);
         

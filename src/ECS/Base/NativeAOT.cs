@@ -96,10 +96,8 @@ A type initializer threw an exception. To determine which type, inspect the Inne
         engineTypesRegistered = true;
 
         RegisterComponent<EntityName>();
-        RegisterComponent<Position>();
-        RegisterComponent<Rotation>();
-        RegisterComponent<Scale3>();
-        RegisterComponent<Transform>();
+        RegisterComponent<TRS>();
+        RegisterComponent<ECSTransform>();
         RegisterComponent<TreeNode>();
         RegisterComponent<UniqueEntity>();
         RegisterComponent<Unresolved>();

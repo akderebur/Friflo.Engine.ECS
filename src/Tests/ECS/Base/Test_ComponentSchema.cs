@@ -85,7 +85,7 @@ public static class Test_ComponentSchema
         AssertBlittableComponent<Position>      (schema, true);
         AssertBlittableComponent<Rotation>      (schema, true);
         AssertBlittableComponent<Scale3>        (schema, true);
-        AssertBlittableComponent<Transform>     (schema, true);
+        AssertBlittableComponent<ECSTransform>     (schema, true);
         AssertBlittableComponent<EntityName>    (schema, true);
         AssertBlittableComponent<Unresolved>    (schema, false);
         

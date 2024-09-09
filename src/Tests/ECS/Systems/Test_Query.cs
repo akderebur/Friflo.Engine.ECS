@@ -172,7 +172,7 @@ public static class Test_Query
             root.AddChild(child);
         }
         // --- force one time allocations
-        var  query = store.Query<Position, Rotation, Scale3, Transform, EntityName>();
+        var  query = store.Query<Position, Rotation, Scale3, ECSTransform, EntityName>();
         int chunkCount = 0;
         foreach (var chunk in query.Chunks) {
             if (chunkCount++ == 0) {
@@ -192,7 +192,7 @@ public static class Test_Query
         Mem.AssertNoAlloc(start);
     }
     
-    private static void AssertChunkExtensions(ArchetypeQuery<Position, Rotation, Scale3, Transform, EntityName> query) {
+    private static void AssertChunkExtensions(ArchetypeQuery<Position, Rotation, Scale3, ECSTransform, EntityName> query) {
 
         foreach (var chunk in query.Chunks) {
             var length = chunk.Entities.Length;
@@ -218,7 +218,7 @@ public static class Test_Query
         root.AddComponent(new EntityName("root"));
         root.AddComponent(new Position(1, 0, 0));
         root.AddComponent<Rotation>();
-        root.AddComponent<Transform>();
+        root.AddComponent<ECSTransform>();
         root.AddComponent<Scale3>();
         root.AddComponent<MyComponent1>();
         store.SetStoreRoot(root);
