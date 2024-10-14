@@ -67,7 +67,7 @@ internal sealed class ValueStructIndex<TIndexedComponent,TValue>  : ComponentInd
 #region get matches
     internal override IReadOnlyCollection<TValue> IndexedComponentValues => entityMap.Keys;
     
-    internal override Entities GetHasValueEntities(TValue value)
+    internal override EntitiesInternal GetHasValueEntities(TValue value)
     {
         entityMap.TryGetValue(value, out var ids);
         return idHeap.GetEntities(store, ids);

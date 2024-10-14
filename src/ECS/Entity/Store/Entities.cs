@@ -233,13 +233,13 @@ public partial class EntityStore
         return query.Entities;
     }
     
-    internal void CreateEntityEvents(Entities entities)
+    internal void CreateEntityEvents(EntitiesInternal entitiesInternal)
     {
         var create = intern.entityCreate;
         if (create == null) {
             return;
         }
-        foreach (var entity in entities) {
+        foreach (var entity in entitiesInternal) {
             create(new EntityCreate(entity));
         }
     }

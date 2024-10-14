@@ -14,7 +14,7 @@ using Browse = System.Diagnostics.DebuggerBrowsableAttribute;
 namespace Friflo.Engine.ECS;
 
 [DebuggerTypeProxy(typeof(EntitiesDebugView))]
-public readonly struct Entities : IReadOnlyList<Entity>
+public readonly struct EntitiesInternal : IReadOnlyList<Entity>
 {
 #region properties
     public              int                 Count       => count;
@@ -32,19 +32,19 @@ public readonly struct Entities : IReadOnlyList<Entity>
     #endregion
     
 #region general
-    internal Entities(EntityStore store, int[] ids, int start, int count) {
+    internal EntitiesInternal(EntityStore store, int[] ids, int start, int count) {
         this.ids    = ids ?? throw new InvalidOperationException("expect ids != null");
         this.store  = store;
         this.start  = start;
         this.count  = count;
     }
     
-    internal Entities(EntityStore store) {
+    internal EntitiesInternal(EntityStore store) {
         ids         = Array.Empty<int>();
         this.store  = store;
     }
     
-    internal Entities(EntityStore store, int id) {
+    internal EntitiesInternal(EntityStore store, int id) {
         this.store  = store;
         start       = id;
         count       = 1;
@@ -100,12 +100,12 @@ public struct EntityEnumerator : IEnumerator<Entity>
     private readonly    int         id;         //  4
     private             int         index;      //  4
     
-    internal EntityEnumerator(in Entities entities) {
-        ids     = entities.ids;
-        store   = entities.store;
-        start   = entities.start - 1;
-        last    = start + entities.count;
-        id      = entities.start;
+    internal EntityEnumerator(in EntitiesInternal entitiesInternal) {
+        ids     = entitiesInternal.ids;
+        store   = entitiesInternal.store;
+        start   = entitiesInternal.start - 1;
+        last    = start + entitiesInternal.count;
+        id      = entitiesInternal.start;
         index   = start;
     }
     
@@ -134,17 +134,17 @@ internal sealed class EntitiesDebugView
     [Browse(RootHidden)]
     internal            Entity[]    Entities => GetEntities();
     
-    private readonly    Entities    entities;
+    private readonly    EntitiesInternal    _entitiesInternal;
     
-    internal EntitiesDebugView(Entities entities) {
-        this.entities = entities;
+    internal EntitiesDebugView(EntitiesInternal entitiesInternal) {
+        this._entitiesInternal = entitiesInternal;
     }
     
     private Entity[] GetEntities()
     {
-        var result  = new Entity[entities.Count];
+        var result  = new Entity[_entitiesInternal.Count];
         int index   = 0;
-        foreach (var entity in entities) {
+        foreach (var entity in _entitiesInternal) {
             result[index++] = entity;
         }
         return result;

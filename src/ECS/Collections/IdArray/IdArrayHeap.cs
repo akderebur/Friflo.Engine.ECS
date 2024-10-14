@@ -38,16 +38,16 @@ internal readonly struct IdArrayHeap
         return count;
     }
     
-    public Entities GetEntities(EntityStore store, IdArray array)
+    public EntitiesInternal GetEntities(EntityStore store, IdArray array)
     {
         var count = array.count;
         var start = array.start;
         switch (count) {
-            case 0: return  new Entities(store);
-            case 1: return  new Entities(store, start);
+            case 0: return  new EntitiesInternal(store);
+            case 1: return  new EntitiesInternal(store, start);
         }
         var ids = IdArrayPool.GetIds(count, this);
-        return new Entities(store, ids, start, count);
+        return new EntitiesInternal(store, ids, start, count);
     }
 
     internal static int PoolIndex(int count)

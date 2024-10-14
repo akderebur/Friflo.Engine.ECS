@@ -43,7 +43,7 @@ public static class TestBed
         root.AddScript(new Script2 { maxHealth = 42, center = new Position(10, 10, 10)});
         */
         var child2   = CreateEntity(store, 2);
-        child2.AddComponent(new ECSTransform { m11 = 4, m12 = 5, m13 = 6 });
+        child2.AddComponent(new WorldTransform { m11 = 4, m12 = 5, m13 = 6 });
         child2.AddTag<Tag1>();
         child2.AddTag<Tag2>();
         child2.AddTag<Tag3>();

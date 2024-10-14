@@ -29,7 +29,7 @@ public static class Test_Entities
             AreEqual(n + 1, entity.Id);   
         }
         
-        var entities1   = new Entities(store, 1);
+        var entities1   = new EntitiesInternal(store, 1);
         view            = new EntitiesDebugView(entities1);
         array           = view.Entities;
         AreEqual(1,     array.Length);
@@ -46,7 +46,7 @@ public static class Test_Entities
         store.CreateEntity(42);
 
         // --- Length: 0
-        var entities0 = new Entities(store);
+        var entities0 = new EntitiesInternal(store);
         AreEqual("Entity[0]", entities0.ToString());
         AreEqual(0,     entities0.Count);
         AreEqual(0,     entities0.Count);
@@ -59,7 +59,7 @@ public static class Test_Entities
         AreEqual(0, count);
             
         // --- Length: 1
-        var entities1 = new Entities(store, 42);
+        var entities1 = new EntitiesInternal(store, 42);
         AreEqual("Entity[1]", entities1.ToString());
         AreEqual(1, entities1.Count);
         AreEqual(1,     entities1.Count);
@@ -75,7 +75,7 @@ public static class Test_Entities
         AreEqual(1, count);
             
         // --- Length: 2
-        var entities2 = new Entities(store, new [] { 1, 2 }, 0, 2);
+        var entities2 = new EntitiesInternal(store, new [] { 1, 2 }, 0, 2);
         AreEqual("Entity[2]", entities2.ToString());
         AreEqual(2, entities2.Count);
         AreEqual(2,     entities2.Count);
@@ -99,7 +99,7 @@ public static class Test_Entities
     {
         var store       = new EntityStore();
         var type        = store.CreateEntity(42).Archetype;
-        var entities = new Entities(store, 42);
+        var entities = new EntitiesInternal(store, 42);
         AreEqual(1, entities.Count);
         {
             int count = 0;
@@ -150,7 +150,7 @@ public static class Test_Entities
     {
         var store = new EntityStore();
         
-        var entities = new Entities(store);
+        var entities = new EntitiesInternal(store);
         Throws<IndexOutOfRangeException>(() => {
             _ = entities[-1];
         });
@@ -159,13 +159,13 @@ public static class Test_Entities
             _ = entities[0];
         });
         
-        entities = new Entities(store, 42);
+        entities = new EntitiesInternal(store, 42);
         Throws<IndexOutOfRangeException>(() => {
             _ = entities[1];
         });
         
         Throws<InvalidOperationException>(() => {
-            _ = new Entities(store, null, 0, 0);
+            _ = new EntitiesInternal(store, null, 0, 0);
         });
     }
 }

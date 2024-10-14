@@ -129,7 +129,7 @@ public sealed class Archetype
         return entity;
     }
     
-    public Entities CreateEntities(int count)
+    public EntitiesInternal CreateEntities(int count)
     {
         var localStore      = entityStore;
         int compIndexStart  = entityCount;
@@ -139,7 +139,7 @@ public sealed class Archetype
             heap.SetComponentsDefault(compIndexStart, count);
         }
         // Send event. See: SEND_EVENT notes
-        var entities = new Entities(localStore, entityIds, compIndexStart, count);
+        var entities = new EntitiesInternal(localStore, entityIds, compIndexStart, count);
         localStore.CreateEntityEvents(entities);
         return entities;
     }
@@ -231,6 +231,8 @@ public sealed class Archetype
             std.trs    = (StructHeap<TRS>)    heap;
         } else if (type == typeof(EntityName)) {
             std.name        = (StructHeap<EntityName>)  heap;
+        } else if (type == typeof(WorldTransform)) {
+            std.wtransform        = (StructHeap<WorldTransform>)  heap;
         }
     }
 

@@ -152,6 +152,6 @@ internal class ChunkDebugView<T>
 public static class ChunkExtensions
 {
     //
-    public static Span<Matrix4x4>   AsSpanMatrix4x4 (this Span <ECSTransform> transform)   => MemoryMarshal.Cast<ECSTransform,Matrix4x4>  (transform);
-    public static Span<Matrix4x4>   AsSpanMatrix4x4 (this Chunk<ECSTransform> transform)   => MemoryMarshal.Cast<ECSTransform,Matrix4x4>  (transform  .Span);
+    public static Span<Matrix4x4>   AsSpanMatrix4x4 (this Span <WorldTransform> transform)   => MemoryMarshal.Cast<WorldTransform,Matrix4x4>  (transform);
+    public static Span<Matrix4x4>   AsSpanMatrix4x4 (this Chunk<WorldTransform> transform)   => MemoryMarshal.Cast<WorldTransform,Matrix4x4>  (transform  .Span);
 }

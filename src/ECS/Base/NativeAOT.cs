@@ -97,7 +97,7 @@ A type initializer threw an exception. To determine which type, inspect the Inne
 
         RegisterComponent<EntityName>();
         RegisterComponent<TRS>();
-        RegisterComponent<ECSTransform>();
+        RegisterComponent<WorldTransform>();
         RegisterComponent<TreeNode>();
         RegisterComponent<UniqueEntity>();
         RegisterComponent<Unresolved>();

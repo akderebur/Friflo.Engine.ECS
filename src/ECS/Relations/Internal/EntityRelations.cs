@@ -138,17 +138,17 @@ internal abstract class EntityRelations
         }
     }
     
-    internal (Entities entities, Chunk<TComponent> relations) GetAllEntityRelations<TComponent>()
+    internal (EntitiesInternal entities, Chunk<TComponent> relations) GetAllEntityRelations<TComponent>()
         where TComponent : struct, IRelationComponent
     {
         int count       = archetype.Count;
-        var entities    = new Entities(store, archetype.entityIds, 0, count);
+        var entities    = new EntitiesInternal(store, archetype.entityIds, 0, count);
         var components  = ((StructHeap<TComponent>)heap).components;
         var chunk       = new Chunk<TComponent>(components, count, 0);
         return (entities, chunk);
     }
     
-    internal static Entities GetIncomingLinkRelations(EntityStore store, int target, int structIndex, out EntityRelations relations)
+    internal static EntitiesInternal GetIncomingLinkRelations(EntityStore store, int target, int structIndex, out EntityRelations relations)
     {
         relations = store.extension.relationsMap?[structIndex];
         if (relations == null) {

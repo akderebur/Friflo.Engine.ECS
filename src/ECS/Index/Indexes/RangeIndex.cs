@@ -74,7 +74,7 @@ public sealed class RangeIndex<TIndexedComponent,TValue> : ComponentIndex<TValue
     #endregion
     
 #region get matches
-    internal override Entities GetHasValueEntities(TValue value)
+    internal override EntitiesInternal GetHasValueEntities(TValue value)
     {
         entityMap.TryGetValue(value, out var ids);
         return idHeap.GetEntities(store, ids);

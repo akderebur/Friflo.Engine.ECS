@@ -106,7 +106,7 @@ public static class Test_EntityLinks
         AreEqual("{ 1 }",       refs4.Debug());
         AreSame (store,         refs4.Store);
         AreEqual(1,             refs4.Count);
-        AreEqual(1,             refs4.Entities.Count);
+        AreEqual(1,             refs4.entitiesInternal.Count);
         AreEqual("Entity: 1 -> Target: 4",   refs4[0].ToString());
         AreEqual(1,             refs4[0].Entity.Id);
         AreEqual(100,           refs4[0].Component.data);

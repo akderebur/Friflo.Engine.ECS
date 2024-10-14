@@ -282,6 +282,14 @@ public readonly partial struct Entity : IEquatable<Entity>
         throw EntityNullException();
     } }
     
+    [Browse(Never)] public  ref WorldTransform   WorldTransform { get {
+        var node = store.nodes[Id];
+        if (node.IsAlive(Revision)) {
+            return ref node.archetype.std.wtransform.components[node.compIndex];
+        }
+        throw EntityNullException();
+    } }
+    
     
     /// <summary>Returns true if the entity has an <see cref="ECS.EntityName"/>.</summary>
     [Browse(Never)] public  bool                HasName { get {

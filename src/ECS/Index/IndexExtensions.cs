@@ -34,7 +34,7 @@ public static class IndexExtensions
     /// Return the entities with the passed component value.<br/>
     /// Executes in O(1) with default index. 
     /// </summary>
-    public static Entities GetEntitiesWithComponentValue<TComponent, TValue>(this EntityStore store, TValue value)
+    public static EntitiesInternal GetEntitiesWithComponentValue<TComponent, TValue>(this EntityStore store, TValue value)
         where TComponent: struct, IIndexedComponent<TValue>
     {
         var index = (ComponentIndex<TValue>)StoreIndex.GetIndex(store, StructInfo<TComponent>.Index);

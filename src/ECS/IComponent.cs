@@ -23,7 +23,7 @@ namespace Friflo.Engine.ECS;
 ///     <item><see cref="Position"/></item>
 ///     <item><see cref="Rotation"/></item>
 ///     <item><see cref="Scale3"/></item>
-///     <item><see cref="ECSTransform"/></item>
+///     <item><see cref="WorldTransform"/></item>
 /// </list>
 /// </remarks>
 public interface IComponent { }

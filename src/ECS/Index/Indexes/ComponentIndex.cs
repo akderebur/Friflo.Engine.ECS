@@ -48,6 +48,6 @@ public abstract class ComponentIndex<TValue> : ComponentIndex
     internal            TValue[]                    sortBuffer  = Array.Empty<TValue>();
     
     internal abstract   IReadOnlyCollection<TValue> IndexedComponentValues        { get; }
-    internal abstract   Entities                    GetHasValueEntities    (TValue value);
+    internal abstract   EntitiesInternal                    GetHasValueEntities    (TValue value);
     internal virtual    void                        AddValueInRangeEntities(TValue min, TValue max, HashSet<int> idSet) => throw NotSupportedException("ValueInRange()");
 }

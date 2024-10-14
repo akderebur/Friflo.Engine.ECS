@@ -152,13 +152,13 @@ public class MySystem_Arg4 : QuerySystem<Position, Rotation, EntityName, Scale3>
     }
 }
 
-public class MySystem_Arg5 : QuerySystem<Position, Rotation, EntityName, Scale3, ECSTransform>
+public class MySystem_Arg5 : QuerySystem<Position, Rotation, EntityName, Scale3, WorldTransform>
 {
     /// <summary> Cover <see cref="ChunkEnumerator{T1}.MoveNext"/> </summary>
     protected override void OnUpdate()
     {
         var store       = Query.Store;
-        var childArch   = store.GetArchetype(ComponentTypes.Get<Position, Rotation, EntityName, Scale3, ECSTransform>());
+        var childArch   = store.GetArchetype(ComponentTypes.Get<Position, Rotation, EntityName, Scale3, WorldTransform>());
         int chunkCount  = 0;
         foreach (var (positions, rotation, name, scale, transform, entities) in Query.Chunks) {
             var matrix4X4   = transform.AsSpanMatrix4x4();
@@ -305,7 +305,7 @@ public static class Test_ScriptSystems
         child.AddComponent(new Position(2, 0, 0));
         child.AddComponent(new Rotation(2, 0, 0, 0));
         child.AddComponent(new Scale3  (2, 0, 0));
-        child.AddComponent<ECSTransform>();
+        child.AddComponent<WorldTransform>();
         child.AddComponent(new EntityName("child"));
         for (int n = 3; n <= 1000; n++) {
             child = child.Archetype.CreateEntity();
@@ -327,7 +327,7 @@ public static class Test_ScriptSystems
         root.AddComponent(new EntityName("root"));
         root.AddComponent(new Position(1, 0, 0));
         root.AddComponent<Rotation>();
-        root.AddComponent<ECSTransform>();
+        root.AddComponent<WorldTransform>();
         root.AddComponent<Scale3>();
         root.AddComponent<MyComponent1>();
         store.SetStoreRoot(root);

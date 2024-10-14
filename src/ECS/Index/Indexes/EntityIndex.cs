@@ -59,7 +59,7 @@ internal abstract class EntityIndex : ComponentIndex<Entity>
     #endregion
     
 #region get matches
-    internal override Entities GetHasValueEntities(Entity value)
+    internal override EntitiesInternal GetHasValueEntities(Entity value)
     {
         entityMap.TryGetValue(value.Id, out var ids);
         return idHeap.GetEntities(store, ids);

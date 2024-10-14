@@ -10,13 +10,13 @@ using Browse = System.Diagnostics.DebuggerBrowsableAttribute;
 // ReSharper disable once CheckNamespace
 namespace Friflo.Engine.ECS;
 
-[ComponentKey("ecstrans")]
+[ComponentKey("worldtrans")]
 [StructLayout(LayoutKind.Explicit)]
-public struct  ECSTransform : IComponent
+public struct  WorldTransform : IComponent
 {
     [Browse(Never)]
     [Ignore]
-    [FieldOffset (0)] public    Matrix4x4   value;  // 64
+    [FieldOffset (0)] public    Matrix4x4   matrix;  // 64
     
     // --- 1st row
     [FieldOffset (0)] public    float       m11;
@@ -38,5 +38,16 @@ public struct  ECSTransform : IComponent
     [FieldOffset(52)] public    float       m42;
     [FieldOffset(56)] public    float       m43;
     [FieldOffset(60)] public    float       m44;
+
+    public Vector3 Position
+    {
+        get => new(m41, m42, m43);
+        set
+        {
+            m41 = value.X;
+            m42 = value.Y;
+            m43 = value.Z;
+        }
+    }
 }
 

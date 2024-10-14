@@ -140,7 +140,7 @@ public static class RelationExtensions
     /// Return all entity relations  of the specified <typeparamref name="TComponent"/> type.<br/>
     /// Executes in O(1).  Most efficient way to iterate all entity relations.
     /// </summary>
-    public static (Entities entities, Chunk<TComponent> relations) GetAllEntityRelations<TComponent>(this EntityStore store)
+    public static (EntitiesInternal entities, Chunk<TComponent> relations) GetAllEntityRelations<TComponent>(this EntityStore store)
         where TComponent : struct, IRelationComponent
     {
         var entityRelations = EntityRelations.GetEntityRelations(store, StructInfo<TComponent>.Index);

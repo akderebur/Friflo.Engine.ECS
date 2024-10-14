@@ -50,25 +50,25 @@ public readonly struct EntityLinks<T> : IReadOnlyList<EntityLink<T>>
     where T : struct, IComponent
 {
 #region properties
-    public              int         Count       => Entities.Count;
-    public              EntityStore Store       => Entities.store;
-    public   override   string      ToString()  => $"EntityLinks<{typeof(T).Name}>[{Entities.Count}]";
+    public              int         Count       => entitiesInternal.Count;
+    public              EntityStore Store       => entitiesInternal.store;
+    public   override   string      ToString()  => $"EntityLinks<{typeof(T).Name}>[{entitiesInternal.Count}]";
     #endregion
     
 #region fields
-                    public   readonly   Entities            Entities;   // 16
+                    public   readonly   EntitiesInternal            entitiesInternal;   // 16
     [Browse(Never)] internal readonly   int                 target;     //  4
     [Browse(Never)] internal readonly   EntityRelations     relations;  //  8
     #endregion
     
 #region general
-    internal EntityLinks(in Entity target, in Entities entities, EntityRelations relations) {
+    internal EntityLinks(in Entity target, in EntitiesInternal entitiesInternal, EntityRelations relations) {
         this.target     = target.Id;
-        Entities        = entities;
+        this.entitiesInternal        = entitiesInternal;
         this.relations  = relations;
     }
     
-    public EntityLink<T> this[int index] => new (target, Entities[index], relations);
+    public EntityLink<T> this[int index] => new (target, entitiesInternal[index], relations);
     
     /// <summary>
     /// Return the entity ids as a string.<br/>E.g <c>"{ 1, 3, 7 }"</c>
@@ -78,7 +78,7 @@ public readonly struct EntityLinks<T> : IReadOnlyList<EntityLink<T>>
         if (Count == 0) return "{ }";
         var sb = new StringBuilder();
         sb.Append("{ ");
-        foreach (var entity in Entities) {
+        foreach (var entity in entitiesInternal) {
             if (sb.Length > 2) sb.Append(", ");
             sb.Append(entity.Id);
         }
@@ -104,13 +104,13 @@ public struct EntityLinkEnumerator<T> : IEnumerator<EntityLink<T>>
     where T : struct, IComponent
 {
     private readonly    int             target;     //  4
-    private readonly    Entities        entities;   // 16
+    private readonly    EntitiesInternal        _entitiesInternal;   // 16
     private readonly    EntityRelations relations;  //  8
     private             int             index;      //  4
     
     internal EntityLinkEnumerator(in EntityLinks<T> entityLinks) {
         target      = entityLinks.target;
-        entities    = entityLinks.Entities;
+        _entitiesInternal    = entityLinks.entitiesInternal;
         relations   = entityLinks.relations;
         index       = -1;
     }
@@ -118,14 +118,14 @@ public struct EntityLinkEnumerator<T> : IEnumerator<EntityLink<T>>
     // --- IEnumerator
     public          void         Reset()    => index = -1;
 
-    readonly object IEnumerator.Current    => new EntityLink<T>(target, entities[index], relations);
+    readonly object IEnumerator.Current    => new EntityLink<T>(target, _entitiesInternal[index], relations);
 
-    public   EntityLink<T>      Current    => new EntityLink<T>(target, entities[index], relations);
+    public   EntityLink<T>      Current    => new EntityLink<T>(target, _entitiesInternal[index], relations);
     
     // --- IEnumerator
     public bool MoveNext()
     {
-        if (index < entities.count - 1) {
+        if (index < _entitiesInternal.count - 1) {
             index++;
             return true;
         }

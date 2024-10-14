@@ -97,7 +97,7 @@ internal sealed class ValueClassIndex<TIndexedComponent,TValue> : ComponentIndex
 #region get matches
     internal override IReadOnlyCollection<TValue> IndexedComponentValues => entityMap.Keys;
     
-    internal override Entities GetHasValueEntities(TValue value)
+    internal override EntitiesInternal GetHasValueEntities(TValue value)
     {
         var heap        = idHeap;
         var localStore  = store;

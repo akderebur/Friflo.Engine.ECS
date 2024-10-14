@@ -10,6 +10,7 @@ internal struct StandardComponents
 {
     internal    StructHeap<TRS>    trs;   // 8
     internal    StructHeap<EntityName>  name;       // 8
+    internal    StructHeap<WorldTransform>  wtransform;
 }
 
 internal readonly struct ArchetypeConfig
